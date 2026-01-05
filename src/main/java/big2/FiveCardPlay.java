@@ -61,7 +61,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay>{
         if(isStraight(cards) || isFlush(cards) || isFullHouse(cards) || isQuad(cards)){
             this.cards = cards;
             if(isStraight(cards) && isFlush(cards)){
-                this.rank = 1000000;
+                this.rank = 100;
                 // isStraight has caused the cards to be sorted in raw order which is correct for comparing straights
                 this.topCard = cards[4];
             }
@@ -89,6 +89,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay>{
 
     @Override
     public int compareTo(FiveCardPlay o) {
-        return 0;
+        if(this.rank == o.rank) return this.topCard.compareTo(o.topCard);
+        else return this.rank - o.rank;
     }
 }
