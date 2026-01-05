@@ -34,7 +34,7 @@ public record Card(int value, char suit) implements Comparable<Card> {
             throw new IllegalArgumentException("Invalid suit");
     }
 
-    public static Card fromAbbrev(String abbrev) {
+    static Card fromAbbrev(String abbrev) {
         if (abbrev.length() > 3 || abbrev.length() < 2)
             throw new IllegalArgumentException("Card abbreviation must be 2 or 3 characters long");
         final int value;
@@ -49,13 +49,13 @@ public record Card(int value, char suit) implements Comparable<Card> {
         return new Card(value, suit);
     }
 
-    public String toAbbrev() {
+    String toAbbrev() {
         if (valueToLetter.containsKey(value)) {
             return String.valueOf(valueToLetter.get(value)) + suit;
         } else return String.valueOf(value) + suit;
     }
 
-    public static Map<Character, Integer> getSuitOrder() {
+    static Map<Character, Integer> getSuitOrder() {
         return suitOrder;
     }
 
@@ -64,5 +64,17 @@ public record Card(int value, char suit) implements Comparable<Card> {
             if (this.suit == other.suit) return 0;
             else return (suitOrder.get(this.suit) < suitOrder.get(other.suit)) ? -1 : 1;
         } else return (big2Value(this.value) < big2Value(other.value)) ? -1 : 1;
+    }
+
+    int getRawValue() {
+        return value;
+    }
+
+    int getBig2Value(){
+        return big2Value(value);
+    }
+
+    char getSuit(){
+        return suit;
     }
 }
