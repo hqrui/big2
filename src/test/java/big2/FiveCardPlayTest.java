@@ -78,7 +78,7 @@ class FiveCardPlayTest {
     @Test
     void testInvalidHand() {
         // Test invalid number of cards
-        assertThrows(InvalidPlayException.class, () ->
+        assertThrows(IllegalArgumentException.class, () ->
             new FiveCardPlay(new Card[]{Card.fromAbbrev("3D"), Card.fromAbbrev("4D")})
         , "Should throw on wrong array length");
 

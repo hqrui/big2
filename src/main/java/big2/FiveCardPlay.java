@@ -9,7 +9,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     private final int rank;
 
     static boolean isStraight(Card[] cards) {
-        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
+        if(cards == null || cards.length != 5) throw new IllegalArgumentException("Must provide array of 5 cards");
         Arrays.sort(cards, Comparator.comparingInt(Card::getRawValue));
         // A2345, 23456, and TQJKA are allowed. QJKA2 is not allowed.
         int val = cards[0].getRawValue(); // raw number (A |-> 1, 2 |-> 2, 3 |-> 3 ... J |-> 11, Q |-> 12, K |-> 13)
@@ -25,7 +25,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
 
     static boolean isFlush(Card[] cards) {
-        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
+        if(cards == null || cards.length != 5) throw new IllegalArgumentException("Must provide array of 5 cards");
         char suit = cards[0].getSuit();
         for (int i = 1; i < 5; i++) {
             if (cards[i].getSuit() != suit) return false;
@@ -34,7 +34,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
 
     static boolean isFullHouse(Card[] cards) {
-        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
+        if(cards == null || cards.length != 5) throw new IllegalArgumentException("Must provide array of 5 cards");
         Arrays.sort(cards);
         int smallVal = cards[0].getBig2Value();
         int bigVal = cards[4].getBig2Value();
@@ -44,7 +44,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
 
     static boolean isQuad(Card[] cards) {
-        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
+        if(cards == null || cards.length != 5) throw new IllegalArgumentException("Must provide array of 5 cards");
         Arrays.sort(cards);
         int smallVal = cards[0].getBig2Value();
         int bigVal = cards[4].getBig2Value();
@@ -59,28 +59,26 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
 
     FiveCardPlay(Card[] cards) throws InvalidPlayException {
         if (cards == null || cards.length != 5) {
-            throw new RuntimeException("FiveCardPlay must have exactly five cards");
+            throw new IllegalArgumentException("FiveCardPlay must have exactly five cards");
         }
-        if (isStraight(cards) || isFlush(cards) || isFullHouse(cards) || isQuad(cards)) {
-            this.cards = cards;
-            if (isStraight(cards) && isFlush(cards)) {
-                this.rank = 100;
-                // isStraight has caused the cards to be sorted in raw order which is correct for comparing straights
-                this.topCard = cards[4];
-            } else if (isStraight(cards)) {
-                this.rank = 1;
-                this.topCard = cards[4];
-            } else if (isFlush(cards)) {
-                Arrays.sort(cards);
-                this.rank = 10;
-                this.topCard = cards[4];
-            } else if (isFullHouse(cards)) {
-                this.rank = 20;
-                this.topCard = cards[2];
-            } else if (isQuad(cards)) {
-                this.rank = 30;
-                this.topCard = cards[2];
-            } else throw new RuntimeException("Error creating FiveCardPlay");
+        this.cards = cards;
+        if (isStraight(cards) && isFlush(cards)) {
+            this.rank = 100;
+            // isStraight has caused the cards to be sorted in raw order which is correct for comparing straights
+            this.topCard = cards[4];
+        } else if (isStraight(cards)) {
+            this.rank = 1;
+            this.topCard = cards[4];
+        } else if (isFlush(cards)) {
+            Arrays.sort(cards);
+            this.rank = 10;
+            this.topCard = cards[4];
+        } else if (isFullHouse(cards)) {
+            this.rank = 20;
+            this.topCard = cards[2];
+        } else if (isQuad(cards)) {
+            this.rank = 30;
+            this.topCard = cards[2];
         } else throw new InvalidPlayException("Not a valid set of 5 cards");
     }
 
