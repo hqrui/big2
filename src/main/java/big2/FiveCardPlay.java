@@ -9,6 +9,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     private final int rank;
 
     static boolean isStraight(Card[] cards) {
+        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
         Arrays.sort(cards, Comparator.comparingInt(Card::getRawValue));
         // A2345, 23456, and TQJKA are allowed. QJKA2 is not allowed.
         int val = cards[0].getRawValue(); // raw number (A |-> 1, 2 |-> 2, 3 |-> 3 ... J |-> 11, Q |-> 12, K |-> 13)
@@ -24,6 +25,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
 
     static boolean isFlush(Card[] cards) {
+        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
         char suit = cards[0].getSuit();
         for (int i = 1; i < 5; i++) {
             if (cards[i].getSuit() != suit) return false;
@@ -32,6 +34,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
 
     static boolean isFullHouse(Card[] cards) {
+        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
         Arrays.sort(cards);
         int smallVal = cards[0].getBig2Value();
         int bigVal = cards[4].getBig2Value();
@@ -41,6 +44,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
 
     static boolean isQuad(Card[] cards) {
+        if(cards == null || cards.length != 5) throw new RuntimeException("Must provide array of 5 cards");
         Arrays.sort(cards);
         int smallVal = cards[0].getBig2Value();
         int bigVal = cards[4].getBig2Value();
@@ -54,8 +58,8 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
 
     FiveCardPlay(Card[] cards) throws InvalidPlayException {
-        if (cards.length != 5) {
-            throw new InvalidPlayException("FiveCardPlay must have exactly five cards");
+        if (cards == null || cards.length != 5) {
+            throw new RuntimeException("FiveCardPlay must have exactly five cards");
         }
         if (isStraight(cards) || isFlush(cards) || isFullHouse(cards) || isQuad(cards)) {
             this.cards = cards;

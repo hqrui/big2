@@ -5,12 +5,14 @@ import java.util.Map;
 public record Card(int value, char suit) implements Comparable<Card> {
     private final static Map<Character, Integer> letterToValue = Map.of(
             'A', 1,
+            'T', 10,
             'J', 11,
             'Q', 12,
             'K', 13
     );
     private final static Map<Integer, Character> valueToLetter = Map.of(
             1, 'A',
+            10, 'T',
             11, 'J',
             12, 'Q',
             13, 'K'
