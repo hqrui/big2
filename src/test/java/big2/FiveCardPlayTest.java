@@ -71,33 +71,32 @@ class FiveCardPlayTest {
             });
 
         } catch (InvalidPlayException e) {
-            e.printStackTrace();
-            fail("Failed to set up valid hands");
+            fail("FiveCardPlayTest failed to set up valid hands");
         }
     }
 
     @Test
     void testInvalidHand() {
         // Test invalid number of cards
-        assertThrows(InvalidPlayException.class, () -> {
-            new FiveCardPlay(new Card[]{Card.fromAbbrev("3D"), Card.fromAbbrev("4D")});
-        }, "Should throw on wrong array length");
+        assertThrows(InvalidPlayException.class, () ->
+            new FiveCardPlay(new Card[]{Card.fromAbbrev("3D"), Card.fromAbbrev("4D")})
+        , "Should throw on wrong array length");
 
         // Test garbage hand (no pattern)
-        assertThrows(InvalidPlayException.class, () -> {
+        assertThrows(InvalidPlayException.class, () ->
             new FiveCardPlay(new Card[]{
                     Card.fromAbbrev("3D"), Card.fromAbbrev("8C"), Card.fromAbbrev("2H"),
                     Card.fromAbbrev("KH"), Card.fromAbbrev("5S")
-            });
-        }, "Should throw on random cards");
+            })
+        , "Should throw on random cards");
 
         // Test broken straight (missing middle card)
-        assertThrows(InvalidPlayException.class, () -> {
+        assertThrows(InvalidPlayException.class, () ->
             new FiveCardPlay(new Card[]{
                     Card.fromAbbrev("3D"), Card.fromAbbrev("4H"), Card.fromAbbrev("6S"),
                     Card.fromAbbrev("7D"), Card.fromAbbrev("8D")
-            });
-        }, "Should throw on broken straight");
+            })
+        , "Should throw on broken straight");
     }
 
     @Test

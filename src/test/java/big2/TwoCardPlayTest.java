@@ -31,15 +31,15 @@ class TwoCardPlayTest {
 
     @Test
     void twoCardPlay() {
-        assertThrows(InvalidPlayException.class, () -> {
-            pair1 = new TwoCardPlay(new Card[]{c3c, cjh});
-        });
-        assertThrows(InvalidPlayException.class, () -> {
-            pair1 = new TwoCardPlay(new Card[]{c2h, c3d});
-        });
-        assertDoesNotThrow(() -> {
-            pair1 = new TwoCardPlay(new Card[]{c3c, c3d});
-        });
+        assertThrows(InvalidPlayException.class, () ->
+            pair1 = new TwoCardPlay(new Card[]{c3c, cjh})
+        );
+        assertThrows(InvalidPlayException.class, () ->
+            pair1 = new TwoCardPlay(new Card[]{c2h, c3d})
+        );
+        assertDoesNotThrow(() ->
+            pair1 = new TwoCardPlay(new Card[]{c3c, c3d})
+        );
     }
 
     @Test
