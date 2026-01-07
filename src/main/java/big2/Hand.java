@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Hand {
     private Card[] cards;
 
-    public Hand(Card[] cards){
+    public Hand(Card[] cards) {
         this.cards = cards;
     }
 

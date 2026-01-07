@@ -1,9 +1,9 @@
 package big2;
 
-class SingleCardPlay implements Comparable<SingleCardPlay>{
+class SingleCardPlay implements Comparable<SingleCardPlay> {
     private final Card card;
 
-    SingleCardPlay(Card card){
+    SingleCardPlay(Card card) {
         this.card = card;
     }
 

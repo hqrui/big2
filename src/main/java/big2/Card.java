@@ -21,9 +21,10 @@ public record Card(int value, char suit) implements Comparable<Card> {
             'H', 2,
             'S', 3
     );
+
     private static int big2Value(int value) {
-        if(value == 1) return 14;
-        else if(value == 2) return 15;
+        if (value == 1) return 14;
+        else if (value == 2) return 15;
         else return value;
     }
 
@@ -70,11 +71,11 @@ public record Card(int value, char suit) implements Comparable<Card> {
         return value;
     }
 
-    int getBig2Value(){
+    int getBig2Value() {
         return big2Value(value);
     }
 
-    char getSuit(){
+    char getSuit() {
         return suit;
     }
 }
