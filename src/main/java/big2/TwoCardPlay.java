@@ -6,7 +6,7 @@ class TwoCardPlay implements Comparable<TwoCardPlay> {
 
   TwoCardPlay(Card[] cards) throws InvalidPlayException {
     if (cards == null || cards.length != 2) {
-      throw new RuntimeException("TwoCardPlay must have exactly two cards");
+      throw new IllegalArgumentException("TwoCardPlay must have exactly two cards");
     }
     if (cards[0].value() != cards[1].value()) {
       throw new InvalidPlayException("The two cards must have the same number");

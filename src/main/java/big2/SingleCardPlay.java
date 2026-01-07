@@ -4,7 +4,7 @@ class SingleCardPlay implements Comparable<SingleCardPlay> {
   private final Card card;
 
   SingleCardPlay(Card card) {
-    if (card == null) throw new RuntimeException("Card must not be null");
+    if (card == null) throw new IllegalArgumentException("Card must not be null");
     this.card = card;
   }
 
