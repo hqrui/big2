@@ -18,14 +18,16 @@ class SingleCardPlayTest {
 
   @org.junit.jupiter.api.Test
   void compareTo() {
-    assertEquals(-1, c1.compareTo(c2));
-    assertEquals(-1, c1.compareTo(c3));
-    assertEquals(1, c2.compareTo(c3));
+    assertTrue(c1.compareTo(c2) < 0);
+    assertTrue(c1.compareTo(c3) < 0);
+    assertTrue(c2.compareTo(c3) > 0);
 
     // compare suits
-    assertEquals(-1, c3.compareTo(c4));
-    assertEquals(1, c4.compareTo(c3));
-    assertEquals(-1, c3.compareTo(c5));
-    assertEquals(1, c6.compareTo(c5));
+    assertTrue(c3.compareTo(c4) < 0);
+    assertTrue(c4.compareTo(c3) > 0);
+    assertTrue(c3.compareTo(c5) < 0);
+    assertTrue(c6.compareTo(c5) > 0);
+
+    assertTrue(c3.compareTo(c3) == 0);
   }
 }

@@ -6,7 +6,15 @@ import java.util.Comparator;
 public class FiveCardPlay implements Comparable<FiveCardPlay> {
   private final Card[] cards;
   private final Card topCard;
-  private final int rank;
+  private final Combination rank;
+
+  enum Combination {
+    STRAIGHT,
+    FLUSH,
+    FULLHOUSE,
+    QUAD,
+    STRAIGHTFLUSH;
+  }
 
   static boolean isStraight(Card[] cards) {
     if (cards == null || cards.length != 5)
@@ -31,7 +39,7 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
   static boolean isFlush(Card[] cards) {
     if (cards == null || cards.length != 5)
       throw new IllegalArgumentException("Must provide array of 5 cards");
-    char suit = cards[0].getSuit();
+    Suit suit = cards[0].getSuit();
     for (int i = 1; i < 5; i++) {
       if (cards[i].getSuit() != suit) return false;
     }
@@ -70,29 +78,33 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     }
     this.cards = cards;
     if (isStraight(cards) && isFlush(cards)) {
-      this.rank = 100;
+      this.rank = Combination.STRAIGHTFLUSH;
       // isStraight has caused the cards to be sorted in raw order which is correct for comparing
       // straights
       this.topCard = cards[4];
     } else if (isStraight(cards)) {
-      this.rank = 1;
+      this.rank = Combination.STRAIGHT;
       this.topCard = cards[4];
     } else if (isFlush(cards)) {
       Arrays.sort(cards);
-      this.rank = 10;
+      this.rank = Combination.FLUSH;
       this.topCard = cards[4];
     } else if (isFullHouse(cards)) {
-      this.rank = 20;
+      this.rank = Combination.FULLHOUSE;
       this.topCard = cards[2];
     } else if (isQuad(cards)) {
-      this.rank = 30;
+      this.rank = Combination.QUAD;
       this.topCard = cards[2];
     } else throw new InvalidPlayException("Not a valid set of 5 cards");
   }
 
   @Override
   public int compareTo(FiveCardPlay o) {
-    if (this.rank == o.rank) return this.topCard.compareTo(o.topCard);
-    else return this.rank - o.rank;
+    if (this.rank == o.rank) {
+      if (this.rank == Combination.FLUSH && this.topCard.suit() != o.topCard.suit()) {
+        return this.topCard.suit().compareTo(o.topCard.suit());
+      } else return this.topCard.compareTo(o.topCard);
+
+    } else return this.rank.compareTo(o.rank);
   }
 }
