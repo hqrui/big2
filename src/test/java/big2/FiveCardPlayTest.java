@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class FiveCardPlayTest {
   FiveCardPlay stra5, str26, strta;
-  FiveCardPlay flucj, fluca;
+  FiveCardPlay flucj, fluca, flus9;
   FiveCardPlay fh32, fh45;
   FiveCardPlay q7;
   FiveCardPlay strfl;
@@ -62,11 +62,20 @@ class FiveCardPlayTest {
       fluca =
           new FiveCardPlay(
               new Card[] {
+                Card.fromAbbrev("4C"),
+                Card.fromAbbrev("6C"),
+                Card.fromAbbrev("8C"),
+                Card.fromAbbrev("TC"),
+                Card.fromAbbrev("AC")
+              });
+      flus9 =
+          new FiveCardPlay(
+              new Card[] {
                 Card.fromAbbrev("3S"),
                 Card.fromAbbrev("5S"),
                 Card.fromAbbrev("7S"),
-                Card.fromAbbrev("9S"),
-                Card.fromAbbrev("AS")
+                Card.fromAbbrev("8S"),
+                Card.fromAbbrev("9S")
               });
 
       // Full Houses
@@ -169,7 +178,10 @@ class FiveCardPlayTest {
 
     // 2. Compare Same Rank (Flush vs Flush)
     // flucj (high J) < fluca (high A)
-    assertTrue(flucj.compareTo(fluca) < 0, "Jack high flush should lose to Ace high flush");
+    assertTrue(
+        flucj.compareTo(fluca) < 0,
+        "Jack high flush should lose to Ace high flush (of the same suit)");
+    assertTrue(fluca.compareTo(flus9) < 0, "Clubs flush should lose to spades flush");
 
     // 3. Compare Same Rank (Full House vs Full House)
     // fh32 (triplet 3) < fh45 (triplet 4)

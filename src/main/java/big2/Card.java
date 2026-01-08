@@ -2,7 +2,7 @@ package big2;
 
 import java.util.Map;
 
-public record Card(int value, char suit) implements Comparable<Card> {
+public record Card(int value, Suit suit) implements Comparable<Card> {
   private static final Map<Character, Integer> letterToValue =
       Map.of(
           'A', 1,
@@ -17,12 +17,12 @@ public record Card(int value, char suit) implements Comparable<Card> {
           11, 'J',
           12, 'Q',
           13, 'K');
-  private static final Map<Character, Integer> suitOrder =
+  private static final Map<Character, Suit> charToSuit =
       Map.of(
-          'D', 0,
-          'C', 1,
-          'H', 2,
-          'S', 3);
+          'D', Suit.DIAMONDS,
+          'C', Suit.CLUBS,
+          'H', Suit.HEARTS,
+          'S', Suit.SPADES);
 
   private static int big2Value(int value) {
     if (value == 1) return 14;
@@ -33,7 +33,13 @@ public record Card(int value, char suit) implements Comparable<Card> {
   public Card {
     if (value < 1 || value > 13)
       throw new IllegalArgumentException("Card value must be between 1 and 13");
-    if (!suitOrder.containsKey(suit)) throw new IllegalArgumentException("Invalid suit");
+  }
+
+  public Card(int value, char suitChar) {
+    this(value, charToSuit.get(suitChar));
+    if (value < 1 || value > 13)
+      throw new IllegalArgumentException("Card value must be between 1 and 13");
+    if (!charToSuit.containsKey(suitChar)) throw new IllegalArgumentException("Invalid suit");
   }
 
   static Card fromAbbrev(String abbrev) {
@@ -54,19 +60,15 @@ public record Card(int value, char suit) implements Comparable<Card> {
 
   String toAbbrev() {
     if (valueToLetter.containsKey(value)) {
-      return String.valueOf(valueToLetter.get(value)) + suit;
-    } else return String.valueOf(value) + suit;
-  }
-
-  static Map<Character, Integer> getSuitOrder() {
-    return suitOrder;
+      return String.valueOf(valueToLetter.get(value)) + suit.toString();
+    } else return String.valueOf(value) + suit.toString();
   }
 
   public int compareTo(Card other) {
     if (this.value == other.value) {
       if (this.suit == other.suit) return 0;
-      else return (suitOrder.get(this.suit) < suitOrder.get(other.suit)) ? -1 : 1;
-    } else return (big2Value(this.value) < big2Value(other.value)) ? -1 : 1;
+      else return this.suit.compareTo(other.suit);
+    } else return Integer.compare(big2Value(this.value), big2Value(other.value));
   }
 
   int getRawValue() {
@@ -77,7 +79,7 @@ public record Card(int value, char suit) implements Comparable<Card> {
     return big2Value(value);
   }
 
-  char getSuit() {
+  Suit getSuit() {
     return suit;
   }
 }
