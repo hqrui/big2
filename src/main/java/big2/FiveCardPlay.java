@@ -2,6 +2,7 @@ package big2;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
   private final Card[] cards;
@@ -109,7 +110,12 @@ public class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
   }
 
   public boolean canPlayOver(Play prev){
+    if(prev instanceof PassPlay) return true;
     if(prev instanceof FiveCardPlay) return (this.compareTo((FiveCardPlay) prev) > 0);
     else return false;
+  }
+
+  public List<Card> getCardList(){
+    return List.of(cards);
   }
 }

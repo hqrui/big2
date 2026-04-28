@@ -1,5 +1,7 @@
 package big2;
 
+import java.util.List;
+
 class TwoCardPlay extends Play implements Comparable<TwoCardPlay> {
   // store in ascending suit order
   private final Card[] cards;
@@ -25,7 +27,12 @@ class TwoCardPlay extends Play implements Comparable<TwoCardPlay> {
   }
 
   public boolean canPlayOver(Play prev){
+    if(prev instanceof PassPlay) return true;
     if(prev instanceof TwoCardPlay) return (this.compareTo((TwoCardPlay) prev) > 0);
     else return false;
+  }
+
+  public List<Card> getCardList(){
+    return List.of(cards);
   }
 }
