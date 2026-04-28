@@ -23,4 +23,9 @@ class TwoCardPlay extends Play implements Comparable<TwoCardPlay> {
   public int compareTo(TwoCardPlay o) {
     return this.cards[1].compareTo(o.cards[1]);
   }
+
+  public boolean canPlayOver(Play prev){
+    if(prev instanceof TwoCardPlay) return (this.compareTo((TwoCardPlay) prev) > 0);
+    else return false;
+  }
 }

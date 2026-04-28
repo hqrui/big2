@@ -107,4 +107,9 @@ public class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
 
     } else return this.rank.compareTo(o.rank);
   }
+
+  public boolean canPlayOver(Play prev){
+    if(prev instanceof FiveCardPlay) return (this.compareTo((FiveCardPlay) prev) > 0);
+    else return false;
+  }
 }

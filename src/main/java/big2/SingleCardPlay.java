@@ -12,4 +12,9 @@ class SingleCardPlay extends Play implements Comparable<SingleCardPlay> {
   public int compareTo(SingleCardPlay o) {
     return this.card.compareTo(o.card);
   }
+
+  public boolean canPlayOver(Play prev){
+    if(prev instanceof SingleCardPlay) return (this.compareTo((SingleCardPlay) prev) > 0);
+    else return false;
+  }
 }
