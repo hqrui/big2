@@ -8,11 +8,11 @@ public class Deck {
   private final Card[] cards = new Card[52];
 
   public Deck() {
-    final var suitOrder = Card.getSuitOrder();
-    final var suits = Card.getSuitOrder().keySet();
-    for (int i = 1; i <= 13; i++) {
-      for (char suit : suits) {
-        cards[(i - 1) * 4 + suitOrder.get(suit)] = new Card(i, suit);
+    final var suits = Suit.values();
+    int i = 0;
+    for (int value = 1; value <= 13; value++) {
+      for (Suit suit : suits) {
+        cards[i++] = new Card(value, suit);
       }
     }
   }
