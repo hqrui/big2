@@ -9,7 +9,19 @@ class DiscardPile {
 
   boolean checkValid(Play p) {
     if (plays.isEmpty()) return true;
-    else return p.canPlayOver(plays.getLast());
+    Play lastNonPassPlay = getLastNonPassPlay();
+    if (lastNonPassPlay == null || lastNonPassPlay.player == p.player) return true;
+    else return p.canPlayOver(lastNonPassPlay);
+  }
+
+  Play getLastNonPassPlay() {
+    for (int i = plays.size() - 1; i >= 0; i--) {
+      Play play = plays.get(i);
+      if (!(play instanceof PassPlay)) {
+        return play;
+      }
+    }
+    return null;
   }
 
   List<Play> getPlays() {

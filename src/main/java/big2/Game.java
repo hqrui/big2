@@ -21,7 +21,7 @@ class Game {
         discardPile.addPlay(p);
         if (p instanceof PassPlay) System.out.println("Player " + curPlayer + " passed");
         else System.out.println("Player " + curPlayer + " played " + p.toString());
-      } else throw new InvalidDiscardException("Illegal play");
+      } else throw new InvalidDiscardException(p.toString());
 
       if (players[curPlayer].hasWon()) {
         System.out.println("Player " + curPlayer + " has won on turn " + turn);

@@ -3,7 +3,7 @@ package big2;
 import java.util.List;
 
 abstract class Play {
-  private final Player player;
+  final Player player;
 
   public Play(Player player){
     this.player = player;
