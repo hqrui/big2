@@ -5,12 +5,12 @@ import java.util.List;
 
 class PassPlay extends Play {
   @Override
-  public boolean canPlayOver(Play prev) {
+  boolean canPlayOver(Play prev) {
     return true;
   }
 
   @Override
-  public List<Card> getCardList() {
+  List<Card> getCardList() {
     return Collections.emptyList();
   }
 }

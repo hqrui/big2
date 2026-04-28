@@ -5,9 +5,9 @@ import java.util.List;
 abstract class Play {
   Player player;
 
-  public abstract boolean canPlayOver(Play prev);
+  abstract boolean canPlayOver(Play prev);
 
-  public abstract List<Card> getCardList();
+  abstract List<Card> getCardList();
 
   @Override
   public String toString() {

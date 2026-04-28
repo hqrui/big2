@@ -102,14 +102,14 @@ class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
   }
 
   @Override
-  public boolean canPlayOver(Play prev) {
+  boolean canPlayOver(Play prev) {
     if (prev instanceof PassPlay) return true;
     if (prev instanceof FiveCardPlay) return (this.compareTo((FiveCardPlay) prev) > 0);
     else return false;
   }
 
   @Override
-  public List<Card> getCardList() {
+  List<Card> getCardList() {
     return List.of(cards);
   }
 
