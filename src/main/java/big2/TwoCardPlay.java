@@ -22,6 +22,10 @@ class TwoCardPlay extends Play implements Comparable<TwoCardPlay> {
     this.cards = cards;
   }
 
+  TwoCardPlay(Card[] cards) throws InvalidPlayException {
+    this(null, cards);
+  }
+
   @Override
   public int compareTo(TwoCardPlay o) {
     return this.cards[1].compareTo(o.cards[1]);

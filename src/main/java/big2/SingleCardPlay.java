@@ -11,6 +11,10 @@ class SingleCardPlay extends Play implements Comparable<SingleCardPlay> {
     this.card = card;
   }
 
+  SingleCardPlay(Card card) {
+    this(null, card);
+  }
+
   @Override
   public int compareTo(SingleCardPlay o) {
     return this.card.compareTo(o.card);

@@ -36,6 +36,11 @@ class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
     } else throw new InvalidPlayException("Not a valid set of 5 cards");
   }
 
+  FiveCardPlay(Card[] cards) throws InvalidPlayException {
+    this(null, cards);
+  }
+
+  // Sorts the cards by value
   static boolean isStraight(Card[] cards) {
     if (cards == null || cards.length != 5)
       throw new IllegalArgumentException("Must provide array of 5 cards");

@@ -3,12 +3,12 @@ package big2;
 import java.util.List;
 
 abstract class Play {
-  Player player;
+  private final Player player;
 
   public Play(Player player){
     this.player = player;
   }
-  
+
   abstract boolean canPlayOver(Play prev);
 
   abstract List<Card> getCardList();
