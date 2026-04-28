@@ -23,8 +23,13 @@ public class Hand {
   }
 
   void removeCards(Play p) {
+    ArrayList<Card> remainingCards = new ArrayList<>(cards);
     for (Card c : p.getCardList()) {
-      cards.remove(c);
+      if (!remainingCards.remove(c)) {
+        throw new IllegalArgumentException("Play contains card not present in hand: " + c);
+      }
     }
+    cards.clear();
+    cards.addAll(remainingCards);
   }
 }
