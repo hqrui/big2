@@ -28,6 +28,6 @@ class SingleCardPlayTest {
     assertTrue(c3.compareTo(c5) < 0);
     assertTrue(c6.compareTo(c5) > 0);
 
-    assertTrue(c3.compareTo(c3) == 0);
+    assertEquals(0, c3.compareTo(c3));
   }
 }
