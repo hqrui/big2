@@ -12,11 +12,11 @@ public class DiscardPile {
     else return p.canPlayOver(plays.getLast());
   }
 
-  List<Play> getPlays(){
+  List<Play> getPlays() {
     return Collections.unmodifiableList(plays);
   }
 
-  void addPlay(Play p){
+  void addPlay(Play p) {
     plays.add(p);
   }
 }

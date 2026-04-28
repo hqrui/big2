@@ -10,7 +10,7 @@ abstract class Play {
   public abstract List<Card> getCardList();
 
   @Override
-  public String toString(){
+  public String toString() {
     return String.join(" ", getCardList().stream().map(Card::toAbbrev).toList());
   }
 }
