@@ -9,7 +9,8 @@ class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
   private final Card topCard;
   private final Combination rank;
 
-  FiveCardPlay(Card[] cards) throws InvalidPlayException {
+  FiveCardPlay(Player player, Card[] cards) throws InvalidPlayException {
+    super(player);
     if (cards == null || cards.length != 5) {
       throw new IllegalArgumentException("FiveCardPlay must have exactly five cards");
     }

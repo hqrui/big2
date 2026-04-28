@@ -14,13 +14,13 @@ class AIPlayer extends Player {
     hand.sort();
     if (prevPlays.isEmpty() || prevPlays.getLast() instanceof PassPlay) {
       // Play the lowest card
-      return new SingleCardPlay(hand.getCards().getFirst());
+      return new SingleCardPlay(this, hand.getCards().getFirst());
     } else {
       for (Card c : hand.getCards()) {
-        SingleCardPlay s = new SingleCardPlay(c);
+        SingleCardPlay s = new SingleCardPlay(this, c);
         if (s.canPlayOver(prevPlays.getLast())) return s;
       }
-      return new PassPlay();
+      return new PassPlay(this);
     }
   }
 }

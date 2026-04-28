@@ -6,7 +6,8 @@ class TwoCardPlay extends Play implements Comparable<TwoCardPlay> {
   // store in ascending suit order
   private final Card[] cards;
 
-  TwoCardPlay(Card[] cards) throws InvalidPlayException {
+  TwoCardPlay(Player player, Card[] cards) throws InvalidPlayException {
+    super(player);
     if (cards == null || cards.length != 2) {
       throw new IllegalArgumentException("TwoCardPlay must have exactly two cards");
     }
