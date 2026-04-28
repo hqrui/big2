@@ -2,7 +2,7 @@ package big2;
 
 import java.util.Map;
 
-public record Card(int value, Suit suit) implements Comparable<Card> {
+record Card(int value, Suit suit) implements Comparable<Card> {
   private static final Map<Character, Integer> letterToValue =
       Map.of(
           'A', 1,

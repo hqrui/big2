@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Deck {
+class Deck {
   private final Card[] cards = new Card[52];
 
   public Deck() {

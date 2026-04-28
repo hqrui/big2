@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DiscardPile {
+class DiscardPile {
   private final ArrayList<Play> plays = new ArrayList<>();
 
   boolean checkValid(Play p) {

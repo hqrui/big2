@@ -5,22 +5,22 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Hand {
+class Hand {
   private final ArrayList<Card> cards;
 
-  public Hand(Card[] cards) {
+  Hand(Card[] cards) {
     this.cards = new ArrayList<>(Arrays.asList(cards));
   }
 
-  public List<Card> getCards() {
+  List<Card> getCards() {
     return Collections.unmodifiableList(cards);
   }
 
-  public void sort() {
+  void sort() {
     cards.sort(Card::compareTo);
   }
 
-  public boolean isEmpty() {
+  boolean isEmpty() {
     return cards.isEmpty();
   }
 
