@@ -1,19 +1,37 @@
 package big2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class Hand {
-  private Card[] cards;
+class Hand {
+  private final ArrayList<Card> cards;
 
-  public Hand(Card[] cards) {
-    this.cards = cards;
+  Hand(Card[] cards) {
+    this.cards = new ArrayList<>(Arrays.asList(cards));
   }
 
-  public Card[] getCards() {
-    return cards;
+  List<Card> getCards() {
+    return Collections.unmodifiableList(cards);
   }
 
-  public void sort() {
-    Arrays.sort(cards);
+  void sort() {
+    cards.sort(Card::compareTo);
+  }
+
+  boolean isEmpty() {
+    return cards.isEmpty();
+  }
+
+  void removeCards(Play p) {
+    ArrayList<Card> remainingCards = new ArrayList<>(cards);
+    for (Card c : p.getCardList()) {
+      if (!remainingCards.remove(c)) {
+        throw new IllegalArgumentException("Play contains card not present in hand: " + c);
+      }
+    }
+    cards.clear();
+    cards.addAll(remainingCards);
   }
 }

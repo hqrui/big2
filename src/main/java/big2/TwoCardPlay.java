@@ -1,10 +1,13 @@
 package big2;
 
-class TwoCardPlay implements Comparable<TwoCardPlay> {
+import java.util.List;
+
+class TwoCardPlay extends Play implements Comparable<TwoCardPlay> {
   // store in ascending suit order
   private final Card[] cards;
 
-  TwoCardPlay(Card[] cards) throws InvalidPlayException {
+  TwoCardPlay(Player player, Card[] cards) throws InvalidPlayException {
+    super(player);
     if (cards == null || cards.length != 2) {
       throw new IllegalArgumentException("TwoCardPlay must have exactly two cards");
     }
@@ -19,8 +22,24 @@ class TwoCardPlay implements Comparable<TwoCardPlay> {
     this.cards = cards;
   }
 
+  TwoCardPlay(Card[] cards) throws InvalidPlayException {
+    this(null, cards);
+  }
+
   @Override
   public int compareTo(TwoCardPlay o) {
     return this.cards[1].compareTo(o.cards[1]);
+  }
+
+  @Override
+  boolean canPlayOver(Play prev) {
+    if (prev instanceof PassPlay) return true;
+    if (prev instanceof TwoCardPlay) return (this.compareTo((TwoCardPlay) prev) > 0);
+    else return false;
+  }
+
+  @Override
+  List<Card> getCardList() {
+    return List.of(cards);
   }
 }

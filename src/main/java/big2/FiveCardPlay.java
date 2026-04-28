@@ -2,20 +2,45 @@ package big2;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
-public class FiveCardPlay implements Comparable<FiveCardPlay> {
+class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
   private final Card[] cards;
   private final Card topCard;
   private final Combination rank;
 
-  enum Combination {
-    STRAIGHT,
-    FLUSH,
-    FULLHOUSE,
-    QUAD,
-    STRAIGHTFLUSH;
+  FiveCardPlay(Player player, Card[] cards) throws InvalidPlayException {
+    super(player);
+    if (cards == null || cards.length != 5) {
+      throw new IllegalArgumentException("FiveCardPlay must have exactly five cards");
+    }
+    this.cards = cards;
+    if (isStraight(cards) && isFlush(cards)) {
+      this.rank = Combination.STRAIGHTFLUSH;
+      // isStraight has caused the cards to be sorted in raw order which is correct for comparing
+      // straights
+      this.topCard = cards[4];
+    } else if (isStraight(cards)) {
+      this.rank = Combination.STRAIGHT;
+      this.topCard = cards[4];
+    } else if (isFlush(cards)) {
+      Arrays.sort(cards);
+      this.rank = Combination.FLUSH;
+      this.topCard = cards[4];
+    } else if (isFullHouse(cards)) {
+      this.rank = Combination.FULLHOUSE;
+      this.topCard = cards[2];
+    } else if (isQuad(cards)) {
+      this.rank = Combination.QUAD;
+      this.topCard = cards[2];
+    } else throw new InvalidPlayException("Not a valid set of 5 cards");
   }
 
+  FiveCardPlay(Card[] cards) throws InvalidPlayException {
+    this(null, cards);
+  }
+
+  // Sorts the cards by value
   static boolean isStraight(Card[] cards) {
     if (cards == null || cards.length != 5)
       throw new IllegalArgumentException("Must provide array of 5 cards");
@@ -72,32 +97,6 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
     return isFlush(cards) && isStraight(cards);
   }
 
-  FiveCardPlay(Card[] cards) throws InvalidPlayException {
-    if (cards == null || cards.length != 5) {
-      throw new IllegalArgumentException("FiveCardPlay must have exactly five cards");
-    }
-    this.cards = cards;
-    if (isStraight(cards) && isFlush(cards)) {
-      this.rank = Combination.STRAIGHTFLUSH;
-      // isStraight has caused the cards to be sorted in raw order which is correct for comparing
-      // straights
-      this.topCard = cards[4];
-    } else if (isStraight(cards)) {
-      this.rank = Combination.STRAIGHT;
-      this.topCard = cards[4];
-    } else if (isFlush(cards)) {
-      Arrays.sort(cards);
-      this.rank = Combination.FLUSH;
-      this.topCard = cards[4];
-    } else if (isFullHouse(cards)) {
-      this.rank = Combination.FULLHOUSE;
-      this.topCard = cards[2];
-    } else if (isQuad(cards)) {
-      this.rank = Combination.QUAD;
-      this.topCard = cards[2];
-    } else throw new InvalidPlayException("Not a valid set of 5 cards");
-  }
-
   @Override
   public int compareTo(FiveCardPlay o) {
     if (this.rank == o.rank) {
@@ -106,5 +105,25 @@ public class FiveCardPlay implements Comparable<FiveCardPlay> {
       } else return this.topCard.compareTo(o.topCard);
 
     } else return this.rank.compareTo(o.rank);
+  }
+
+  @Override
+  boolean canPlayOver(Play prev) {
+    if (prev instanceof PassPlay) return true;
+    if (prev instanceof FiveCardPlay) return (this.compareTo((FiveCardPlay) prev) > 0);
+    else return false;
+  }
+
+  @Override
+  List<Card> getCardList() {
+    return List.of(cards);
+  }
+
+  enum Combination {
+    STRAIGHT,
+    FLUSH,
+    FULLHOUSE,
+    QUAD,
+    STRAIGHTFLUSH
   }
 }

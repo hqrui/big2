@@ -2,7 +2,7 @@ package big2;
 
 import java.util.Map;
 
-public record Card(int value, Suit suit) implements Comparable<Card> {
+record Card(int value, Suit suit) implements Comparable<Card> {
   private static final Map<Character, Integer> letterToValue =
       Map.of(
           'A', 1,
@@ -24,17 +24,17 @@ public record Card(int value, Suit suit) implements Comparable<Card> {
           'H', Suit.HEARTS,
           'S', Suit.SPADES);
 
-  private static int big2Value(int value) {
-    if (value == 1) return 14;
-    else if (value == 2) return 15;
-    else return value;
-  }
-
   public Card(int value, char suitChar) {
     this(value, charToSuit.get(suitChar));
     if (value < 1 || value > 13)
       throw new IllegalArgumentException("Card value must be between 1 and 13");
     if (!charToSuit.containsKey(suitChar)) throw new IllegalArgumentException("Invalid suit");
+  }
+
+  private static int big2Value(int value) {
+    if (value == 1) return 14;
+    else if (value == 2) return 15;
+    else return value;
   }
 
   static Card fromAbbrev(String abbrev) {
