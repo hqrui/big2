@@ -3,7 +3,7 @@ package big2;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class FiveCardPlay implements Comparable<FiveCardPlay> {
+public class FiveCardPlay extends Play implements Comparable<FiveCardPlay> {
   private final Card[] cards;
   private final Card topCard;
   private final Combination rank;

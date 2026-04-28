@@ -1,6 +1,6 @@
 package big2;
 
-class TwoCardPlay implements Comparable<TwoCardPlay> {
+class TwoCardPlay extends Play implements Comparable<TwoCardPlay> {
   // store in ascending suit order
   private final Card[] cards;
 

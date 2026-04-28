@@ -1,3 +1,5 @@
 package big2;
 
-abstract class Play {}
+abstract class Play {
+  Player player;
+}

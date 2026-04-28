@@ -1,6 +1,6 @@
 package big2;
 
-class SingleCardPlay implements Comparable<SingleCardPlay> {
+class SingleCardPlay extends Play implements Comparable<SingleCardPlay> {
   private final Card card;
 
   SingleCardPlay(Card card) {
