@@ -9,6 +9,7 @@ class PassPlay extends Play {
     return true;
   }
 
+  @Override
   public List<Card> getCardList() {
     return Collections.emptyList();
   }

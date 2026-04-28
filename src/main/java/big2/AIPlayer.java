@@ -2,11 +2,12 @@ package big2;
 
 import java.util.List;
 
-public class AIPlayer extends Player {
+class AIPlayer extends Player {
   public AIPlayer(Hand hand) {
     super(hand);
   }
 
+  @Override
   Play getNextPlay(DiscardPile d) {
     // dummy strategy
     List<Play> prevPlays = d.getPlays();

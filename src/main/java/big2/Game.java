@@ -1,13 +1,12 @@
 package big2;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
   public void run() {
     Hand[] hands = Deck.deal();
     Player[] players = new Player[4];
     for (int i = 0; i < 4; i++) {
-      ArrayList<Card> cards = hands[i].getCards();
+      List<Card> cards = hands[i].getCards();
       players[i] = new AIPlayer(hands[i]);
       for (Card c : cards) System.out.print(c.toAbbrev() + " ");
       System.out.println();
@@ -22,7 +21,7 @@ public class Game {
         discardPile.addPlay(p);
         if (p instanceof PassPlay) System.out.println("Player " + curPlayer + " passed");
         else System.out.println("Player " + curPlayer + " played " + p.toString());
-      } else throw new RuntimeException("Illegal play");
+      } else throw new InvalidDiscardException("Illegal play");
 
       if (players[curPlayer].hasWon()) {
         System.out.println("Player " + curPlayer + " has won on turn " + turn);

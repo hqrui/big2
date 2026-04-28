@@ -15,12 +15,14 @@ class SingleCardPlay extends Play implements Comparable<SingleCardPlay> {
     return this.card.compareTo(o.card);
   }
 
+  @Override
   public boolean canPlayOver(Play prev) {
     if (prev instanceof PassPlay) return true;
     if (prev instanceof SingleCardPlay) return (this.compareTo((SingleCardPlay) prev) > 0);
     else return false;
   }
 
+  @Override
   public List<Card> getCardList() {
     return List.of(card);
   }

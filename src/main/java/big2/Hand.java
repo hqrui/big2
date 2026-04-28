@@ -2,6 +2,8 @@ package big2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Hand {
   private final ArrayList<Card> cards;
@@ -10,8 +12,8 @@ public class Hand {
     this.cards = new ArrayList<>(Arrays.asList(cards));
   }
 
-  public ArrayList<Card> getCards() {
-    return cards;
+  public List<Card> getCards() {
+    return Collections.unmodifiableList(cards);
   }
 
   public void sort() {
