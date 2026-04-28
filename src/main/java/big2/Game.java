@@ -1,13 +1,13 @@
 package big2;
 import java.util.List;
 
-public class Game {
+class Game {
   public void run() {
     Hand[] hands = Deck.deal();
     Player[] players = new Player[4];
     for (int i = 0; i < 4; i++) {
       List<Card> cards = hands[i].getCards();
-      players[i] = new AIPlayer(hands[i]);
+      players[i] = new AIPlayer(hands[i], new AIPlayerBasicStrategy());
       for (Card c : cards) System.out.print(c.toAbbrev() + " ");
       System.out.println();
     }
