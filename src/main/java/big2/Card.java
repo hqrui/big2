@@ -30,11 +30,6 @@ public record Card(int value, Suit suit) implements Comparable<Card> {
     else return value;
   }
 
-  public Card {
-    if (value < 1 || value > 13)
-      throw new IllegalArgumentException("Card value must be between 1 and 13");
-  }
-
   public Card(int value, char suitChar) {
     this(value, charToSuit.get(suitChar));
     if (value < 1 || value > 13)
@@ -60,8 +55,8 @@ public record Card(int value, Suit suit) implements Comparable<Card> {
 
   String toAbbrev() {
     if (valueToLetter.containsKey(value)) {
-      return String.valueOf(valueToLetter.get(value)) + suit.toString();
-    } else return String.valueOf(value) + suit.toString();
+      return valueToLetter.get(value) + suit.toString();
+    } else return value + suit.toString();
   }
 
   public int compareTo(Card other) {
