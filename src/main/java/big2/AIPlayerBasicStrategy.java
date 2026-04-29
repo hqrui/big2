@@ -7,10 +7,10 @@ class AIPlayerBasicStrategy implements AIPlayerStrategy{
         if (lastNonPassPlay == null || lastNonPassPlay instanceof PassPlay
         || lastNonPassPlay.player == player) {
             // Play the lowest card
-            return new SingleCardPlay(player, hand.getCards().getFirst());
+            return new OneCardPlay(player, hand.getCards().getFirst());
         } else {
             for (Card c : hand.getCards()) {
-                SingleCardPlay s = new SingleCardPlay(player, c);
+                OneCardPlay s = new OneCardPlay(player, c);
                 if (s.canPlayOver(lastNonPassPlay)) return s;
             }
             return new PassPlay(player);

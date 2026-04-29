@@ -2,7 +2,7 @@ package big2;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SingleCardPlayTest {
+class OneCardPlayTest {
 
   private Card c1, c2, c3, c4, c5, c6;
 
